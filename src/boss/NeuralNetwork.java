@@ -10,7 +10,7 @@ import java.util.Scanner;
 	
 public class NeuralNetwork {
 	int numberOfInputs = 2;
-	int numberOfHiddenNeurons = 20;
+	int numberOfHiddenNeurons = 25;
 	int numberOfOutputs = 1;
 	int expectedOutput = 0;
 	int globalI = 0;
@@ -93,7 +93,7 @@ public class NeuralNetwork {
 		ILins[0][1] = temp[1];
 		expectedOutput= (int) temp[2];
 		if(globalI == 899){
-			if(iterations%10 == 0) { drawProgress();calcNetError();};
+			if(iterations%100 == 0) { drawProgress();calcNetError();};
 			globalI = 0;
 			iterations++;
 			Collections.shuffle(learningData);

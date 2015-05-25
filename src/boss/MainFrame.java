@@ -1,19 +1,10 @@
 package boss;
 import info.monitorenter.gui.chart.Chart2D;
 import info.monitorenter.gui.chart.ITrace2D;
-import info.monitorenter.gui.chart.traces.Trace2DLtd;
 import info.monitorenter.gui.chart.traces.Trace2DSimple;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.util.Vector;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame{
