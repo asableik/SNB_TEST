@@ -10,7 +10,7 @@ import java.util.Scanner;
 	
 public class NeuralNetwork {
 	int numberOfInputs = 2;
-	int numberOfHiddenNeurons = 30;
+	int numberOfHiddenNeurons = 20;
 	int numberOfOutputs = 1;
 	int expectedOutput = 0;
 	int globalI = 0;
@@ -57,7 +57,7 @@ public class NeuralNetwork {
 			ILins[0][0] = i*0.01;
 			for(int j = 0;j<100;j++){
 				ILins[0][1] = 1- j*0.01;
-				propagateForward();
+				propagateForwardtest();
 				temp[i][j] = OLouts[0][0]*255;
 			}	
 		}
@@ -106,9 +106,20 @@ public class NeuralNetwork {
 		HLstate = new double [1][numberOfHiddenNeurons];
 		OLstate = new double [1][1];
 		calcLayerState(ILins,Wih,HLstate,ILBias,WILBias);//3
-		calcLayerOuts(HLouts,HLstate);//4
+		calcLayerOuts(HLouts,HLstate,1);//4
 		calcLayerState(HLouts,Whj,OLstate,HLBias,WHLBias);//5
-		calcLayerOuts(OLouts,OLstate);//6
+		calcLayerOuts(OLouts,OLstate,1);//6
+		//System.out.println("Output: " + OLouts[0][0]);
+
+	};
+	
+	void propagateForwardtest(){
+		HLstate = new double [1][numberOfHiddenNeurons];
+		OLstate = new double [1][1];
+		calcLayerState(ILins,Wih,HLstate,ILBias,WILBias);//3
+		calcLayerOuts(HLouts,HLstate,1);//4
+		calcLayerState(HLouts,Whj,OLstate,HLBias,WHLBias);//5
+		calcLayerOuts(OLouts,OLstate,2);//6
 		//System.out.println("Output: " + OLouts[0][0]);
 
 	};
@@ -130,9 +141,15 @@ public class NeuralNetwork {
 		}
 	}
 	
-	void calcLayerOuts(double [][] outs,double [][] state){
+	void calcLayerOuts(double [][] outs,double [][] state,int number){
 		for(int i = 0; i<outs[0].length;i++){
 			outs[0][i] = function (state[0][i]);
+			if(number == 2){
+				if(outs[0][i] >=0.5d){
+					outs[0][i] = 1;
+				} else outs[0][i] = 0;
+				
+			}
 		}
 	}
 	
