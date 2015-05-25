@@ -1,4 +1,11 @@
 package boss;
+import info.monitorenter.gui.chart.Chart2D;
+import info.monitorenter.gui.chart.ITrace2D;
+import info.monitorenter.gui.chart.traces.Trace2DLtd;
+import info.monitorenter.gui.chart.traces.Trace2DSimple;
+
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,19 +13,34 @@ import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame{
 		static MainFrame thisMainFrame;
 		static VisualisationPanel vPanel;
+		static Chart2D chart;
+		static ITrace2D trace;
 		public MainFrame(){
 		thisMainFrame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600	,700);
 		setTitle("frame");
-		//v = new Vector<Integer>();
 		vPanel = new VisualisationPanel(100);
 		this.add(vPanel);
+		vPanel.setSize(400,400);
+
+		this.setLayout(null);
+
+		chart = new Chart2D();
+		trace = new Trace2DSimple();
+		trace.setName("Net error");
+		chart.setSize(600,400);
+		chart.setLocation(400,0);
+		chart.addTrace(trace);
+		thisMainFrame.add(chart);
+		trace.addPoint(0,0);
+		
 	}
 	
 	
@@ -30,11 +52,15 @@ public class MainFrame extends JFrame{
             }
         });
 		
-		
 			while (thisMainFrame==null){
 				System.out.println("ahoj");	
 			}
-			NeuralNetwork network = new NeuralNetwork(vPanel);
+			while (thisMainFrame.isVisible()== false){
+				System.out.println("ahoj");	
+			}
+	
+			System.out.println(trace);	
+			NeuralNetwork network = new NeuralNetwork(vPanel,trace);
 			network.calcNet();
 	}
 }
